@@ -1,30 +1,30 @@
 <template>
   <div id="app">
-      <router-link to="/"></router-link>
-      <router-link to="/about"></router-link>
-    <router-view/>
+    <router-link to="/"></router-link>
+    <router-link to="/about"></router-link>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+@include md-register-theme(
+  "default",
+  (
+    accent: md-get-palette-color(blue, A200),
+    // The primary color of your application
+      primary: #3B4358, // The accent or secondary color
+  )
+);
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+@import "~vue-material/dist/theme/all"; // Apply the theme
 </style>
