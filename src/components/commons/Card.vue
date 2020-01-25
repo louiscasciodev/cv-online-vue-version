@@ -16,6 +16,7 @@
         </md-button>
       </md-card-header>
       <md-divider></md-divider>
+      <!-- ////////////////////////////////////////////////////////////////////////// -->
       <!-- <md-card-content>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.</md-card-content>
       <md-card-actions md-alignment="right">
           <md-button>
@@ -69,11 +70,12 @@ export default {
   text-align: justify;
 }
 
-.md-card{
-    margin: 20px;
+.md-card-expand-content {
+  max-height: 172px;
 }
 
-.md-card-content{
+.md-card {
+  margin: 20px;
 }
 
 .card-header-icon {

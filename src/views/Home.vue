@@ -8,7 +8,6 @@
           </md-button>
           <span class="md-title">CV en ligne</span>
         </md-app-toolbar>
-
         <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
           <md-toolbar class="md-transparent" md-elevation="0">
             <div class="md-toolbar-section-end">
@@ -27,22 +26,22 @@
 
             <md-divider class="md-inset"></md-divider>
 
-            <md-list-item to="/home" exact>
+            <md-list-item to="/project/all" exact>
               <md-icon>list</md-icon>
               <span class="md-list-item-text">Tous</span>
             </md-list-item>
 
-            <md-list-item to="/3" exact>
+            <md-list-item to="/project/3" exact>
               <md-icon>filter_3</md-icon>
               <span class="md-list-item-text">Projet 3</span>
             </md-list-item>
 
-            <md-list-item to="/2" exact>
+            <md-list-item to="/project/2" exact>
               <md-icon>filter_2</md-icon>
               <span class="md-list-item-text">Projet 2</span>
             </md-list-item>
 
-            <md-list-item to="/1" exact>
+            <md-list-item to="/project/1" exact>
               <md-icon>filter_1</md-icon>
               <span class="md-list-item-text">Projet 1</span>
             </md-list-item>
@@ -57,100 +56,12 @@
             </md-list-item>
           </md-list>
         </md-app-drawer>
-
         <md-app-content>
-          <div class="md-layout">
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-            <div
-              class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-            >
-              <Card></Card>
-            </div>
-          </div>
+          <router-link to="/project/all"></router-link>
+          <router-link to="/project/3"></router-link>
+          <router-link to="/project/2"></router-link>
+          <router-link to="/project/1"></router-link>
+          <router-view></router-view>
         </md-app-content>
       </md-app>
     </div>
@@ -158,14 +69,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Card from "@/components/commons/Card.vue";
 
 export default {
   name: "home",
-  components: {
-    Card
-  },
   data: () => ({
     menuVisible: false
   }),
