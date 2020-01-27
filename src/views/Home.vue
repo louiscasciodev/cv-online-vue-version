@@ -61,7 +61,10 @@
           <router-link to="/project/3"></router-link>
           <router-link to="/project/2"></router-link>
           <router-link to="/project/1"></router-link>
+          <router-link to="/cv"></router-link>
+          <transition name="slide-fade">
           <router-view></router-view>
+          </transition>
         </md-app-content>
       </md-app>
     </div>

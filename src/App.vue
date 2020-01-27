@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <router-link to="/"></router-link>
-    <router-link to="/about"></router-link>
-    <router-view />
+    <transition name="slide-fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -15,6 +16,19 @@
   color: #2c3e50;
 }
 
+////////////////////////////Transitions////////////////////////////
+/* Les animations d'entrée (« enter ») et de sortie (« leave »)  */
+/* peuvent utiliser différentes fonctions de durée et de temps.  */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
 @include md-register-theme(
@@ -22,7 +36,8 @@
   (
     accent: md-get-palette-color(blue, A200),
     // The primary color of your application
-      primary: #3B4358, // The accent or secondary color
+      primary: #3b4358,
+    // The accent or secondary color
   )
 );
 

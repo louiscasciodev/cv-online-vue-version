@@ -5,18 +5,27 @@ import AllProjects from '@/components/AllProjects'
 import Project1 from '@/components/Project1'
 import Project2 from '@/components/Project2'
 import Project3 from '@/components/Project3'
-
+import Cv from '@/components/Cv'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    component: Home,
+    children: [
+      { path: '', component: AllProjects },
+    ]
   },
   {
-    path: '/project/:id', component: Home,
+    path: '/cv',
+    component: Home,
+    children: [
+      { path: '', component: Cv },
+    ]
+  },
+  {
+    path: '/project/', component: Home,
     children: [
       { path: 'all', component: AllProjects },
       { path: '1', component: Project1 },
