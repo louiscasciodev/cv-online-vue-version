@@ -18,7 +18,9 @@
       <md-divider></md-divider>
       <md-card-expand>
         <md-card-expand-content>
-          <md-card-content>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.</md-card-content>
+          <md-card-content>
+            <CardReadMe :repo_name="repo_name"></CardReadMe>
+          </md-card-content>
         </md-card-expand-content>
         <md-card-actions md-alignment="right">
           <md-card-expand-trigger>
@@ -42,8 +44,13 @@
 </template>
 
 <script>
+import CardReadMe from "@/components/commons/CardReadMe.vue";
+
 export default {
   name: "Card",
+  components: {
+    CardReadMe
+  },
   props: {
     repo_name: String,
     repo_description: String,
@@ -60,12 +67,15 @@ export default {
   text-align: justify;
 }
 
-.md-card-expand-content {
-  max-height: 172px;
-}
-
 .md-card {
   margin: 20px;
+}
+
+.md-card-content{
+  max-height: 200px;
+  text-align: left;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .card-header-icon {

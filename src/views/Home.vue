@@ -145,5 +145,6 @@ li a span {
 .md-layout-item {
   display: flex;
   justify-content: center;
+  min-width: 200px;
 }
 </style>

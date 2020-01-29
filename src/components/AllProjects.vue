@@ -9,7 +9,7 @@
       <Card
         :repo_name="item.name"
         :repo_description="item.description"
-        :repo_update="item.updated_at"
+        :repo_update="getDate(item.updated_at)"
         :repo_url="item.html_url"
       ></Card>
     </div>
@@ -27,14 +27,21 @@ export default {
   },
   data: function() {
     return {
+      repos: [],
       loaded: false,
-      repos: []
+      errored: false
     };
   },
   methods: {
     debug(data) {
       return console.log(data);
-    }
+    },
+    getDate(date){
+    let dateobj = new Date(`${date}`)
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }
+    let result = dateobj.toLocaleDateString('fr-CA', options)
+    return result
+  }
   },
   created() {
     axios
@@ -42,6 +49,10 @@ export default {
       .then(response => {
         this.repos = response.data;
         this.loaded = true;
+      })
+      .catch(error => {
+        console.log(error);
+        this.errored = true.finally(() => (this.loaded = false));
       });
   }
 };
