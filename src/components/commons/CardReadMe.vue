@@ -1,24 +1,25 @@
 <template>
-  <vue-markdown>{{getContent(this.readMe.content)}}</vue-markdown>
+  <div>
+     <div v-html="this.compiledMarkdown()"></div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import VueMarkdown from 'vue-markdown'
+import marked from "marked";
 
 export default {
   name: "CardReadMe",
-    components: {
-    VueMarkdown
-  },
   props: {
     repo_name: String
   },
-  data: function() {
+  data() {
     return {
-      readMe: [],
+      readMe: "",
       loaded: false,
-      errored: false
+      errored: false,
+      text: "",
+      parsed: ""
     };
   },
   methods: {
@@ -26,7 +27,7 @@ export default {
       axios
         .get(`https://api.github.com/repos/louiscasciodev/${repoName}/readme`)
         .then(response => {
-          this.readMe = response.data;
+          this.readMe = response.data.content;
           this.loaded = true;
         })
         .catch(error => {
@@ -34,24 +35,19 @@ export default {
           this.errored = true.finally(() => (this.loaded = false));
         });
     },
-    getContent(content) {
-      const result = atob(content);
-      return result;
+    getContent() {
+      return window.atob(this.readMe);
     },
-    showReadMe() {
-      console.log(this.readMe);
+    compiledMarkdown() {
+      let a = this.getContent()
+      return marked(a, { sanitize: true });
+    },
+    showConsole(a) {
+      console.log(a);
     }
-    // supprH1(el){
-    //   el = el.textContent
-    //   el = el.getElementsByTagName("h1").replace = ""
-    // },
-    // postrender(sourceData) {
-    //   return this.supprH1(sourceData)
-    // }
   },
   mounted() {
     this.getReadMe(this.repo_name);
-    this.showReadMe();
   }
 };
 </script>
