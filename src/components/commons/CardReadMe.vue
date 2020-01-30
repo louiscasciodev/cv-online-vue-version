@@ -1,12 +1,13 @@
 <template>
   <div>
-     <div v-html="this.compiledMarkdown()"></div>
+    <div v-html="this.compiledMarkdown()"></div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import marked from "marked";
+import DOMPurify from "dompurify"
 
 export default {
   name: "CardReadMe",
@@ -17,9 +18,7 @@ export default {
     return {
       readMe: "",
       loaded: false,
-      errored: false,
-      text: "",
-      parsed: ""
+      errored: false
     };
   },
   methods: {
@@ -36,11 +35,19 @@ export default {
         });
     },
     getContent() {
-      return window.atob(this.readMe);
+      return decodeURIComponent(escape(window.atob(this.readMe)));
     },
     compiledMarkdown() {
-      let a = this.getContent()
-      return marked(a, { sanitize: true });
+      const config = { FORBID_TAGS: ['h1']};
+      const text = this.getContent();
+      return DOMPurify.sanitize(marked(text, {
+        pedantic: false,
+        gfm: true,
+        breaks: true,
+        smartLists: true,
+        smartypants: false,
+        xhtml: false
+      }), config);
     },
     showConsole(a) {
       console.log(a);
