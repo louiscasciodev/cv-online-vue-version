@@ -2,13 +2,27 @@
   <div class="home">
     <div class="page-container">
       <md-app>
-        <md-app-toolbar class="md-primary" md-elevation="5">
-          <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
-            <md-icon>keyboard_arrow_right</md-icon>
-          </md-button>
-          <span class="md-title">CV en ligne</span>
+        <md-app-toolbar class="md-primary md-medium" md-elevation="5">
+          <div class="start-search-container">
+            <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+              <md-icon>menu</md-icon>
+            </md-button>
+            <span class="md-title">CV en ligne</span>
+          </div>
+          <div class="search-container">
+            <md-autocomplete
+              class="search"
+              v-model="selectedRepo"
+              :md-options="reposList"
+              :md-open-on-focus="false"
+              md-layout="box"
+            >
+              <label>Search...</label>
+            </md-autocomplete>
+          </div>
         </md-app-toolbar>
-        <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
+
+        <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
           <md-toolbar class="md-transparent" md-elevation="0">
             <div class="md-toolbar-section-end">
               <md-avatar class="md-elevation-1">
@@ -63,7 +77,7 @@
           <router-link to="/project/1"></router-link>
           <router-link to="/cv"></router-link>
           <transition name="slide-fade">
-          <router-view></router-view>
+            <router-view></router-view>
           </transition>
         </md-app-content>
       </md-app>
@@ -72,16 +86,40 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
   name: "home",
-  data: () => ({
-    menuVisible: false
-  }),
+  data: function() {
+    return {
+      menuVisible: false,
+      dataList: [],
+      reposList: [],
+      loaded: false,
+      errored: false,
+      selectedRepo: null,
+    };
+  },
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
+    },
+    async getData() {
+      await axios
+        .get("https://api.github.com/users/louiscasciodev/repos")
+        .then(response => {
+          this.dataList = response.data;
+        });
+      this.getReposList();
+    },
+    getReposList() {
+      this.dataList.map(repo => {
+        return this.reposList.push(repo.name);
+      });
     }
+  },
+  mounted() {
+    this.getData();
   }
 };
 </script>
@@ -106,14 +144,7 @@ export default {
 }
 
 .md-toolbar {
-  height: 64px;
-  min-height: 64px;
-  padding: 0 16px;
-}
-
-.md-toolbar {
-  height: 64px;
-  min-height: 64px;
+  min-height: 88px;
   padding: 0 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -146,5 +177,21 @@ li a span {
   display: flex;
   justify-content: center;
   min-width: 200px;
+}
+
+.start-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+.search {
+  max-width: 500px;
 }
 </style>
