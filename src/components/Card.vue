@@ -76,11 +76,11 @@ export default {
   text-align: justify;
 }
 
-.md-card-expand{
-}
+// .md-card-expand{
+// }
 
-.md-card-actions{
-}
+// .md-card-actions{
+// }
 
 .md-card-content{
   max-height: 200px;

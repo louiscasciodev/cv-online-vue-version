@@ -8,17 +8,11 @@
           </md-button>
           <span class="md-title">CV en ligne</span>
         </div>
-        <div class="search-container">
-          <md-autocomplete
-            class="search"
-            v-model="selectedRepo"
-            :md-options="reposList"
-            :md-open-on-focus="false"
-            md-layout="box"
-          >
-            <label>Search...</label>
-          </md-autocomplete>
-        </div>
+
+        <!-- search bar component -->
+        <the-home-search></the-home-search>
+        <!-- search bar component -->
+
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
@@ -34,41 +28,11 @@
           </div>
         </md-toolbar>
 
-        <md-list>
-          <md-subheader class="md-inset">Projets</md-subheader>
-
-          <md-divider class="md-inset"></md-divider>
-
-          <md-list-item to="/project/all" exact>
-            <md-icon>list</md-icon>
-            <span class="md-list-item-text">Tous</span>
-          </md-list-item>
-
-          <md-list-item to="/project/3" exact>
-            <md-icon>filter_3</md-icon>
-            <span class="md-list-item-text">Projet 3</span>
-          </md-list-item>
-
-          <md-list-item to="/project/2" exact>
-            <md-icon>filter_2</md-icon>
-            <span class="md-list-item-text">Projet 2</span>
-          </md-list-item>
-
-          <md-list-item to="/project/1" exact>
-            <md-icon>filter_1</md-icon>
-            <span class="md-list-item-text">Projet 1</span>
-          </md-list-item>
-
-          <md-subheader class="md-inset">Téléchargements</md-subheader>
-
-          <md-divider class="md-inset"></md-divider>
-
-          <md-list-item to="/cv" exact>
-            <md-icon>attachment</md-icon>
-            <span class="md-list-item-text">Curriculum vitæ</span>
-          </md-list-item>
-        </md-list>
+        <!-- drawer list component -->
+        <the-home-drawer-list></the-home-drawer-list>
+        <!-- drawer list component -->
       </md-app-drawer>
+      
       <md-app-content>
         <router-link to="/project/all"></router-link>
         <router-link to="/project/3"></router-link>
@@ -84,50 +48,24 @@
 </template>
 
 <script>
-import axios from "axios";
+import TheHomeDrawerList from "@/views/TheHomeDrawerList";
+import TheHomeSearch from "@/views/TheHomeSearch";
 
 export default {
   name: "TheHome",
+  components: {
+    TheHomeDrawerList,
+    TheHomeSearch
+  },
   data: function() {
     return {
-      menuVisible: false,
-      dataList: [],
-      reposList: [],
-      loaded: false,
-      errored: false
+      menuVisible: false
     };
-  },
-  computed: {
-    selectedRepo: {
-      get: function() {
-        return this.$store.state.selectedRepo;
-      },
-      set: function(newValue) {
-        this.$store.dispatch("setSelectedRepo", newValue);
-        //nom de l'action + newValue
-      }
-    }
   },
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
-    },
-    async getData() {
-      await axios
-        .get("https://api.github.com/users/louiscasciodev/repos")
-        .then(response => {
-          this.dataList = response.data;
-        });
-      this.getReposList();
-    },
-    getReposList() {
-      this.dataList.map(repo => {
-        return this.reposList.push(repo.name);
-      });
     }
-  },
-  mounted() {
-    this.getData();
   }
 };
 </script>
@@ -145,31 +83,10 @@ export default {
   background-color: #dfe0e0;
 }
 
-.md-list {
-  margin: 8px 0;
-  padding: 8px 0;
-  background-color: #dfe0e0;
-}
-
 .md-toolbar {
   min-height: 88px;
   padding: 0 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-li a span {
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.md-subheader {
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.00938em;
-  color: rgba(0, 0, 0, 0.54);
 }
 
 .md-app-content {
@@ -185,21 +102,5 @@ li a span {
   display: flex;
   justify-content: center;
   min-width: 200px;
-}
-
-.start-search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-container {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-}
-
-.search {
-  max-width: 500px;
 }
 </style>
