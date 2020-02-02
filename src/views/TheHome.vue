@@ -89,16 +89,26 @@
 import axios from "axios";
 
 export default {
-  name: "home",
+  name: "TheHome",
   data: function() {
     return {
       menuVisible: false,
       dataList: [],
       reposList: [],
       loaded: false,
-      errored: false,
-      selectedRepo: null,
+      errored: false
     };
+  },
+  computed: {
+    selectedRepo: {
+      get: function() {
+        return this.$store.state.selectedRepo
+      },
+      set: function(newValue) {
+        this.$store.dispatch("setSelectedRepo", newValue);
+        //nom de l'action + newValue
+      }
+    }
   },
   methods: {
     toggleMenu() {
@@ -165,7 +175,7 @@ li a span {
 }
 
 .md-app-content {
-  padding: 30px 10%;
+  padding: 30px 8%;
 }
 
 .md-layout {

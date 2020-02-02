@@ -6,10 +6,10 @@
           <font-awesome-icon :icon="['fab', 'vuejs']" :style="{ color: 'rgb(65, 184, 131)' }" />
         </md-icon>
         <md-card-header-text>
-          <div class="md-body-2">{{this.repo_name}}</div>
-          <div class="md-subhead">Mis à jour le {{this.repo_update}}</div>
+          <div class="md-body-2">{{this.repoName}}</div>
+          <div class="md-subhead">Mis à jour le {{this.repoUpdate}}</div>
         </md-card-header-text>
-        <md-button :href="this.repo_url" target="blank" class="md-icon-button" md-menu-trigger>
+        <md-button :href="this.repoUrl" target="blank" class="md-icon-button" md-menu-trigger>
           <md-icon>
             <font-awesome-icon :icon="['fab', 'github-alt']" />
           </md-icon>
@@ -19,7 +19,11 @@
       <md-card-expand>
         <md-card-expand-content>
           <md-card-content>
-            <CardReadMe :repo_name="repo_name"></CardReadMe>
+
+            <card-readme 
+            :repoName="repoName">
+            </card-readme>
+
           </md-card-content>
         </md-card-expand-content>
         <md-card-actions md-alignment="right">
@@ -44,31 +48,38 @@
 </template>
 
 <script>
-import CardReadMe from "@/components/commons/CardReadMe.vue";
+import CardReadme from "@/components/CardReadme.vue";
 
 export default {
   name: "Card",
   components: {
-    CardReadMe
+    CardReadme
   },
   props: {
-    repo_name: String,
-    repo_description: String,
-    repo_update: String,
-    repo_url: String
+    repoName: String,
+    repoDescription: String,
+    repoUpdate: String,
+    repoUrl: String
   }
 };
 </script>
 
 <style scoped lang="scss">
+
+.md-card {
+  margin: 20px;
+}
+
 .md-card-expansion {
   width: 100%;
   padding: 0 10px;
   text-align: justify;
 }
 
-.md-card {
-  margin: 20px;
+.md-card-expand{
+}
+
+.md-card-actions{
 }
 
 .md-card-content{
@@ -76,6 +87,7 @@ export default {
   text-align: left;
   overflow-x: hidden;
   overflow-y: auto;
+  opacity: 0.7;
 }
 
 .card-header-icon {

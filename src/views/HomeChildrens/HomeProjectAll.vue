@@ -5,21 +5,21 @@
       v-for="item in this.repos"
       :key="item.id"
     >
-      <Card
-        :repo_name="item.name"
-        :repo_description="item.description"
-        :repo_update="getDate(item.updated_at)"
-        :repo_url="item.html_url"
-      ></Card>
+      <card
+        :repoName="item.name"
+        :repoDescription="item.description"
+        :repoUpdate="getDate(item.updated_at)"
+        :repoUrl="item.html_url"
+      ></card>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-import Card from "@/components/commons/Card.vue";
+import Card from "@/components/Card.vue";
 
 export default {
-  name: "AllProjects",
+  name: "HomeProjectAll",
   components: {
     Card
   },
@@ -29,6 +29,11 @@ export default {
       loaded: false,
       errored: false
     };
+  },
+  computed: {
+    selectedRepo() {
+      return this.$store.state.selectedRepo;
+    }
   },
   methods: {
     debug(data) {
@@ -58,9 +63,8 @@ export default {
         });
     }
   },
-  created() {
-  },
-  mounted(){
+  created() {},
+  mounted() {
     this.getData();
   }
 };

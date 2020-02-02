@@ -1,9 +1,9 @@
 <template>
-  <div>hello cv</div>
+  <div>hello 1</div>
 </template>
 
 <script>
 export default {
-  name: "Cv"
+  name: "HomeProject1"
 };
 </script>

@@ -10,9 +10,9 @@ import marked from "marked";
 import DOMPurify from "dompurify"
 
 export default {
-  name: "CardReadMe",
+  name: "CardReadme",
   props: {
-    repo_name: String
+    repoName: String
   },
   data() {
     return {
@@ -54,7 +54,7 @@ export default {
     }
   },
   mounted() {
-    this.getReadMe(this.repo_name);
+    this.getReadMe(this.repoName);
   }
 };
 </script>
