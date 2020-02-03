@@ -2,7 +2,7 @@
   <div class="md-layout">
     <div
       class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
-      v-for="item in this.repos"
+      v-for="item in searchRepo(repos,selectedRepo)"
       :key="item.id"
     >
       <card
@@ -61,6 +61,19 @@ export default {
           console.log(error);
           this.errored = true.finally(() => (this.loaded = false));
         });
+    },
+    searchRepo(table, word) {
+      let dataToShow = this.repos;
+      if (word !== "Search") {
+        // si le mot recherché n'est pas une chaine vide
+        dataToShow = [];
+        // on vide le tableau pour une nouvelle recherche
+        return (dataToShow = table.filter(
+          item => item.name.toUpperCase().match(`.*${word.toUpperCase()}.*`)
+          // on compare les deux chaine mises en majuscules(pour que l'on soit sur de toujours comparer des chaines de meme type)
+        ));
+      } else dataToShow;
+      //si la recherche est vide on veut afficher toutes les données dans le tableau
     }
   },
   created() {},

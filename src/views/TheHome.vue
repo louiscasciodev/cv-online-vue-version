@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <md-app>
-      <md-app-toolbar class="md-primary md-medium" md-elevation="5">
+      <md-app-toolbar class="md-primary" md-elevation="5">
         <div class="start-search-container">
           <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
             <md-icon>menu</md-icon>
@@ -12,7 +12,6 @@
         <!-- search bar component -->
         <the-home-search></the-home-search>
         <!-- search bar component -->
-
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
@@ -32,7 +31,7 @@
         <the-home-drawer-list></the-home-drawer-list>
         <!-- drawer list component -->
       </md-app-drawer>
-      
+
       <md-app-content>
         <router-link to="/project/all"></router-link>
         <router-link to="/project/3"></router-link>
@@ -84,7 +83,11 @@ export default {
 }
 
 .md-toolbar {
+  height: 88px;
   min-height: 88px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   padding: 0 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -102,5 +105,26 @@ export default {
   display: flex;
   justify-content: center;
   min-width: 200px;
+}
+
+.start-search-container {
+  position: absolute;
+  min-width: 250px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .md-toolbar,
+  .md-app-toolbar {
+    height: 140px;
+    min-height: 140px;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .start-search-container {
+    position: relative;
+  }
 }
 </style>

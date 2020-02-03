@@ -3,7 +3,19 @@
     <md-card>
       <md-card-header>
         <md-icon class="card-header-icon">
-          <font-awesome-icon :icon="['fab', 'vuejs']" :style="{ color: 'rgb(65, 184, 131)' }" />
+          <div v-if="repoDescription==='vue'">
+            <font-awesome-icon :icon="['fab', 'vuejs']" :style="{ color: 'rgb(65, 184, 131)' }" />
+          </div>
+          <div v-else-if="repoDescription==='react'">
+            <font-awesome-icon
+              :icon="['fab', 'react']"
+              :style="{color: 'rgb(97, 218, 251)'}"
+              class="fa-spin"
+            />
+          </div>
+          <div v-else>
+            <font-awesome-icon :icon="['fab', 'js-square']" />
+          </div>
         </md-icon>
         <md-card-header-text>
           <div class="md-body-2">{{this.repoName}}</div>
@@ -19,11 +31,7 @@
       <md-card-expand>
         <md-card-expand-content>
           <md-card-content>
-
-            <card-readme 
-            :repoName="repoName">
-            </card-readme>
-
+            <card-readme :repoName="repoName"></card-readme>
           </md-card-content>
         </md-card-expand-content>
         <md-card-actions md-alignment="right">
@@ -65,8 +73,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .md-card {
+  min-width: 300px;
   margin: 20px;
 }
 
@@ -76,13 +84,7 @@ export default {
   text-align: justify;
 }
 
-// .md-card-expand{
-// }
-
-// .md-card-actions{
-// }
-
-.md-card-content{
+.md-card-content {
   max-height: 200px;
   text-align: left;
   overflow-x: hidden;

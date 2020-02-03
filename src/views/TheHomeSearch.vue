@@ -58,19 +58,23 @@ export default {
 </script>
 
 <style scoped>
-.start-search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .search-container {
-  width: 80%;
+  position: absolute;
+  width: 100%;
+  min-width: 300px;
   display: flex;
   justify-content: center;
 }
 
 .search {
-  max-width: 500px;
+  width: 40%;
+  min-width: 300px;
+}
+
+@media (max-width: 600px) {
+  .search-container {
+    position: relative;
+    width: 40vh;
+  }
 }
 </style>
