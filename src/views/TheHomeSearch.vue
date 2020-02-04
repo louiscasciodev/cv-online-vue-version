@@ -17,7 +17,7 @@ import axios from "axios";
 
 export default {
   name: "TheHomeSearch",
-  data: function() {
+  data() {
     return {
       dataList: [],
       reposList: [],

@@ -18,10 +18,10 @@
           </div>
         </md-icon>
         <md-card-header-text>
-          <div class="md-body-2">{{this.repoName}}</div>
-          <div class="md-subhead">Mis à jour le {{this.repoUpdate}}</div>
+          <div class="md-body-2">{{repoName}}</div>
+          <div class="md-subhead">Mis à jour le {{repoUpdate}}</div>
         </md-card-header-text>
-        <md-button :href="this.repoUrl" target="blank" class="md-icon-button" md-menu-trigger>
+        <md-button :href="repoUrl" target="blank" class="md-icon-button" md-menu-trigger>
           <md-icon>
             <font-awesome-icon :icon="['fab', 'github-alt']" />
           </md-icon>
@@ -43,10 +43,10 @@
               </md-card-expand-trigger>
             </md-button>
           </md-card-expand-trigger>
-          <md-button class="md-icon-button">
+          <md-button class="md-icon-button" @click="starringRepo(repoName)">
             <md-icon>star</md-icon>
           </md-button>
-          <md-button class="md-icon-button">
+          <md-button class="md-icon-button" @click="forkRepo(repoName)">
             <md-icon>share</md-icon>
           </md-button>
         </md-card-actions>
@@ -57,6 +57,14 @@
 
 <script>
 import CardReadme from "@/components/CardReadme.vue";
+import axios from "axios";
+
+const options = {
+  headers: {
+    "Authorization": "f1217ef74fcc6357aa1a2d7debb8eea178b3ecd8",
+    "Content-Type": "application/json"
+  }
+};
 
 export default {
   name: "Card",
@@ -68,6 +76,42 @@ export default {
     repoDescription: String,
     repoUpdate: String,
     repoUrl: String
+  },
+  data() {
+    return {
+      dataList: [],
+      reposList: [],
+      loaded: false,
+      errored: false
+    };
+  },
+  methods: {
+    forkRepo(repoName) {
+      axios
+        .post(
+          `https://api.github.com/repos/louiscasciodev/${repoName}/forks`,
+          options
+        )
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    starringRepo(repoName) {
+      axios
+        .put(
+          `https://api.github.com/user/starred/louiscasciodev/${repoName}`,
+          options
+        )
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 };
 </script>

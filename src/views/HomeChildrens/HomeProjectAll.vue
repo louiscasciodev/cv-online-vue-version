@@ -1,5 +1,14 @@
 <template>
   <div class="md-layout">
+    <div v-if="dataToShow.length === 0 && loaded === true">
+      <h1>Aucun projet de ce nom</h1>
+    </div>
+    <div v-else-if="loaded === false">
+      <h1>Chargement ...</h1>
+    </div>
+    <div v-else-if="errored === true">
+      <h1>Impossible d'afficher les repos depuis github</h1>
+    </div>
     <div
       class="md-layout-item md-xlarge-size-25 md-large-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
       v-for="item in searchRepo(repos,selectedRepo)"
@@ -27,7 +36,8 @@ export default {
     return {
       repos: [],
       loaded: false,
-      errored: false
+      errored: false,
+      dataToShow: []
     };
   },
   computed: {
@@ -63,16 +73,16 @@ export default {
         });
     },
     searchRepo(table, word) {
-      let dataToShow = this.repos;
+      this.dataToShow = this.repos;
       if (word !== "Search") {
         // si le mot recherché n'est pas une chaine vide
-        dataToShow = [];
+        this.dataToShow = [];
         // on vide le tableau pour une nouvelle recherche
-        return (dataToShow = table.filter(
+        return (this.dataToShow = table.filter(
           item => item.name.toUpperCase().match(`.*${word.toUpperCase()}.*`)
           // on compare les deux chaine mises en majuscules(pour que l'on soit sur de toujours comparer des chaines de meme type)
         ));
-      } else dataToShow;
+      } else this.dataToShow;
       //si la recherche est vide on veut afficher toutes les données dans le tableau
     }
   },
